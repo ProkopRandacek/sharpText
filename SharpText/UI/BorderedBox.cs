@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace SharpText.UI {
     public enum Border {
         Ascii,
-        Normal,
-        Dotted,
         Bold,
+        Dotted,
         Double,
+        Normal,
         Round
     }
 
