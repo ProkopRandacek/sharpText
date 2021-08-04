@@ -1,5 +1,3 @@
-using System;
-
 namespace SharpText.UI {
     public class Window {
         public Element Root;

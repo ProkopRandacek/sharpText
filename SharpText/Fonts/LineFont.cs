@@ -107,7 +107,7 @@ namespace SharpText.Fonts {
                 'N', new[,] {
                     { Line.Vertical | Line.Right, Line.TR, Line.Vertical },
                     { Line.Vertical, Line.Vertical, Line.Vertical },
-                    { Line.Vertical, Line.BL, Line.Vertical | Line.Left},
+                    { Line.Vertical, Line.BL, Line.Vertical | Line.Left },
                     { Line.Vertical, Line.Empty, Line.Vertical }
                 }
             }, {
@@ -203,6 +203,7 @@ namespace SharpText.Fonts {
                 }
             }
         };
+
         public static Box GetLetter(Color bg, Color fg, char c) {
             Box letter = ConstructLetter(c);
             letter.SetColors(bg, fg);
@@ -211,10 +212,10 @@ namespace SharpText.Fonts {
 
         private static Box ConstructLetter(char c) {
             if (!Letters.ContainsKey(c)) c = '?';
-            
+
             Line[,] ls     = Letters[c];
             Box     letter = new(3, 4);
-            
+
             for (int x = 0; x < 3; x++)
                 for (int y = 0; y < 4; y++)
                     letter[x, y] = new Pixel(CharTables.Map[Border.Round][ls[y, x]]);

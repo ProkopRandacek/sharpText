@@ -29,8 +29,6 @@ namespace SharpText.UI {
     }
 
     public static class CharTables {
-        public static char GetChar(Border type, Line bs) => Map[type][bs];
-
         public static readonly Dictionary<Border, Dictionary<Line, char>> Map = new() {
             {
                 Border.Ascii, new Dictionary<Line, char> {
@@ -124,5 +122,9 @@ namespace SharpText.UI {
                 }
             }
         };
+
+        public static char GetChar(Border type, Line bs) {
+            return Map[type][bs];
+        }
     }
 }

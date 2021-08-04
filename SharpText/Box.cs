@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Drawing;
 
 namespace SharpText {
@@ -8,29 +7,6 @@ namespace SharpText {
     /// </summary>
     public class Box {
         private Pixel[,] _grid;
-
-        public int Height {
-            get { return _grid.GetLength(1); }
-        }
-
-        public int Width {
-            get { return _grid.GetLength(0); }
-        }
-
-        public Vector Size {
-            get {
-                return new Vector(Width, Height);
-            }
-        }
-
-        public Pixel this[int x, int y] {
-            get {
-                if (x < 0) x += Width;
-                if (y < 0) y += Height;
-                return _grid[x, y];
-            }
-            set { _grid[x, y] = value; }
-        }
 
         public Box(Vector size) {
             _grid = new Pixel[size.X, size.Y];
@@ -41,6 +17,27 @@ namespace SharpText {
 
         public Box(int x, int y) {
             _grid = new Pixel[x, y];
+        }
+
+        public int Height {
+            get { return _grid.GetLength(1); }
+        }
+
+        public int Width {
+            get { return _grid.GetLength(0); }
+        }
+
+        public Vector Size {
+            get { return new Vector(Width, Height); }
+        }
+
+        public Pixel this[int x, int y] {
+            get {
+                if (x < 0) x += Width;
+                if (y < 0) y += Height;
+                return _grid[x, y];
+            }
+            set { _grid[x, y] = value; }
         }
 
         public void AddBox(Box box, Vector offset) {
@@ -60,7 +57,6 @@ namespace SharpText {
                     this[x, y].Bg = bg;
                     this[x, y].Fg = fg;
                 }
-                    
         }
 
         private void Resize(Vector newSize) {
@@ -71,7 +67,7 @@ namespace SharpText {
             Array.Copy(_grid, newGrid, _grid.Length);
 
             _grid = newGrid;
-            
+
             for (int x = 0; x < Width; x++)
                 for (int y = 0; y < Height; y++)
                     this[x, y] ??= new Pixel();
