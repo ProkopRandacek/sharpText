@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Drawing;
+using SharpText;
 using SharpText.UI;
-using Vector = SharpText.Vector;
 
 namespace testing {
     internal class Program {
         private static void Main(string[] args) {
             Window w = SharpText.SharpText.ConsoleWindow();
-            w.Root = new BorderedBox(new Vector(0, 0), new Vector(60, 60), Color.Black, Color.White, Border.Normal);
-            w.Root.Children.Add(new BorderedBox(new Vector(1, 1), new Vector(20, 20), Color.Black, Color.White, Border.Round));
-            w.Root.Children.Add(new BorderedBox(new Vector(1, 21), new Vector(20, 20), Color.Black, Color.White, Border.Ascii));
-            w.Root.Children.Add(new BorderedBox(new Vector(21, 1), new Vector(20, 20), Color.Black, Color.White, Border.Double));
+            w.Root = new BorderedBox(new Vector(60, 60), new Vector(60, 0), type: Border.Normal, title: "Root box");
+            w.Root.AddChild(new BorderedBox(new Vector(20, 20), new Vector(1, 1), type: Border.Round, title: "This title it too long so it will be cropped"));
+            w.Root.AddChild(new BorderedBox(new Vector(40, 20), new Vector(1, 21), type: Border.Ascii, title: "Ascii box!"));
+            w.Root.AddChild(new BorderedBox(new Vector(20, 20), new Vector(21, 1), type: Border.Double, title: "Double lines!"));
 
             w.Draw();
             Console.ReadKey();

@@ -8,7 +8,7 @@ namespace SharpText {
         }
 
         public static Vector operator +(Vector a, Vector b) {
-            return new(a.X + b.X, a.Y + b.Y);
+            return new Vector(a.X + b.X, a.Y + b.Y);
         }
     }
 }

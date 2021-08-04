@@ -1,25 +1,26 @@
 using System.Drawing;
 
 namespace SharpText.UI {
-    public class ColoredBox: Element {
+    public class ColoredBox : Element {
+        private Box    _box;
         private Vector _size;
 
         public Color Bg;
-        
+        public Color Fg;
+
+        public ColoredBox(Vector offset, Vector size, Color bg, Color fg) : base(offset) {
+            Bg               = bg;
+            Fg               = fg;
+            Size             = size;
+            Offset = offset;
+        }
+
         public Vector Size {
             get { return _size; }
             set {
                 _size = value;
                 RefreshBox();
             }
-        }
-
-        private Box _box;
-        
-        public ColoredBox(Vector offsetFromParent, Vector size, Color bg) : base(offsetFromParent) {
-            Bg               = bg;
-            Size             = size;
-            OffsetFromParent = offsetFromParent;
         }
 
         public override Box DrawMe() {
