@@ -13,9 +13,8 @@ namespace SharpText.UI {
     }
 
     public class BigText : ColoredBox {
-        private Vector _fontOffset;
-
         private readonly Vector _fontSize;
+        private          Vector _fontOffset;
         private          string _text;
 
         public BigText(Vector size, Vector offset, Color bg, Color fg, string text) : base(offset, size, bg, fg) {
@@ -66,12 +65,11 @@ namespace SharpText.UI {
                 _fontOffset.Y = (Size.Y - s.Y) / 2;
                 _fontOffset.X = (Size.X - s.X) / 2;
             }
-            
+
             if ((c & Centering.Up) > 0) _fontOffset.Y    = 0;
             if ((c & Centering.Left) > 0) _fontOffset.X  = 0;
             if ((c & Centering.Right) > 0) _fontOffset.X = (Size.X - s.X) + 1;
-            if ((c & Centering.Down) > 0) _fontOffset.Y  = (Size.Y - s.Y);
-
+            if ((c & Centering.Down) > 0) _fontOffset.Y  = Size.Y - s.Y;
         }
     }
 }

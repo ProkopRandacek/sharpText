@@ -20,7 +20,7 @@ namespace testing {
 
 
             w.Draw();
-            
+
             bt.Center(Centering.Up | Centering.Center);
             Thread.Sleep(200);
             w.Draw();

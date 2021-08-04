@@ -14,5 +14,13 @@ namespace SharpText {
             Fg = fg;
             Bg = bg;
         }
+
+        public static bool operator ==(Pixel a, Pixel b) {
+            return b is not null && a is not null && (a.Bg == b.Bg) && (a.Fg == b.Fg) && (a.C == b.C);
+        }
+
+        public static bool operator !=(Pixel a, Pixel b) {
+            return !(a == b);
+        }
     }
 }

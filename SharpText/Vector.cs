@@ -10,5 +10,13 @@ namespace SharpText {
         public static Vector operator +(Vector a, Vector b) {
             return new Vector(a.X + b.X, a.Y + b.Y);
         }
+
+        public static bool operator ==(Vector a, Vector b) {
+            return (a.X == b.X) && (a.Y == b.Y);
+        }
+
+        public static bool operator !=(Vector a, Vector b) {
+            return (a.X != b.X) || (a.Y != b.Y);
+        }
     }
 }
