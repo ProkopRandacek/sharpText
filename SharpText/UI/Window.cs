@@ -7,7 +7,7 @@ namespace SharpText.UI {
 
         public Window(IScreen screen) {
             Screen = screen;
-            Console.Clear();
+            Screen.Init();
         }
 
         public int Width {
@@ -21,8 +21,8 @@ namespace SharpText.UI {
         public void Draw() {
             Box box = Root.Draw();
 
-            for (int x = 0; x < box.Grid.GetLength(0); x++)
-                for (int y = 0; y < box.Grid.GetLength(1); y++) {
+            for (int x = 0; x < box.Width; x++)
+                for (int y = 0; y < box.Height; y++) {
                     Pixel p = box[x, y];
                     Screen.SetPixel(p.Bg, p.Fg, new Vector(x, y), p.C);
                 }

@@ -12,7 +12,8 @@ namespace SharpText.UI {
     }
 
     [Flags]
-    public enum BorderSegment {
+    public enum Line {
+        Empty  = 0,
         Top    = 1,
         Left   = 2,
         Right  = 4,
@@ -28,90 +29,98 @@ namespace SharpText.UI {
     }
 
     public static class CharTables {
-        public static readonly Dictionary<Border, Dictionary<BorderSegment, char>> Map = new() {
+        public static char GetChar(Border type, Line bs) => Map[type][bs];
+
+        public static readonly Dictionary<Border, Dictionary<Line, char>> Map = new() {
             {
-                Border.Ascii, new Dictionary<BorderSegment, char> {
-                    { BorderSegment.TL, '+' },
-                    { BorderSegment.BL, '+' },
-                    { BorderSegment.TR, '+' },
-                    { BorderSegment.BR, '+' },
-                    { BorderSegment.Cross, '+' },
-                    { BorderSegment.Vertical, '|' },
-                    { BorderSegment.Horizontal, '-' },
-                    { BorderSegment.Vertical | BorderSegment.Left, '+' },
-                    { BorderSegment.Vertical | BorderSegment.Right, '+' },
-                    { BorderSegment.Horizontal | BorderSegment.Top, '+' },
-                    { BorderSegment.Horizontal | BorderSegment.Bottom, '+' }
+                Border.Ascii, new Dictionary<Line, char> {
+                    { Line.TL, '+' },
+                    { Line.BL, '+' },
+                    { Line.TR, '+' },
+                    { Line.BR, '+' },
+                    { Line.Cross, '+' },
+                    { Line.Empty, ' ' },
+                    { Line.Vertical, '|' },
+                    { Line.Horizontal, '-' },
+                    { Line.Vertical | Line.Left, '+' },
+                    { Line.Vertical | Line.Right, '+' },
+                    { Line.Horizontal | Line.Top, '+' },
+                    { Line.Horizontal | Line.Bottom, '+' }
                 }
             }, {
-                Border.Bold, new Dictionary<BorderSegment, char> {
-                    { BorderSegment.TL, '┏' },
-                    { BorderSegment.BL, '┗' },
-                    { BorderSegment.TR, '┓' },
-                    { BorderSegment.BR, '┛' },
-                    { BorderSegment.Cross, '╋' },
-                    { BorderSegment.Vertical, '┃' },
-                    { BorderSegment.Horizontal, '━' },
-                    { BorderSegment.Vertical | BorderSegment.Left, '┫' },
-                    { BorderSegment.Vertical | BorderSegment.Right, '┣' },
-                    { BorderSegment.Horizontal | BorderSegment.Top, '┻' },
-                    { BorderSegment.Horizontal | BorderSegment.Bottom, '┳' }
+                Border.Bold, new Dictionary<Line, char> {
+                    { Line.TL, '┏' },
+                    { Line.BL, '┗' },
+                    { Line.TR, '┓' },
+                    { Line.BR, '┛' },
+                    { Line.Cross, '╋' },
+                    { Line.Empty, ' ' },
+                    { Line.Vertical, '┃' },
+                    { Line.Horizontal, '━' },
+                    { Line.Vertical | Line.Left, '┫' },
+                    { Line.Vertical | Line.Right, '┣' },
+                    { Line.Horizontal | Line.Top, '┻' },
+                    { Line.Horizontal | Line.Bottom, '┳' }
                 }
             }, {
-                Border.Dotted, new Dictionary<BorderSegment, char> {
-                    { BorderSegment.TL, '┌' },
-                    { BorderSegment.BL, '└' },
-                    { BorderSegment.TR, '┐' },
-                    { BorderSegment.BR, '┘' },
-                    { BorderSegment.Cross, '┼' },
-                    { BorderSegment.Vertical, '┊' },
-                    { BorderSegment.Horizontal, '┈' },
-                    { BorderSegment.Vertical | BorderSegment.Left, '┤' },
-                    { BorderSegment.Vertical | BorderSegment.Right, '├' },
-                    { BorderSegment.Horizontal | BorderSegment.Top, '┴' },
-                    { BorderSegment.Horizontal | BorderSegment.Bottom, '┬' }
+                Border.Dotted, new Dictionary<Line, char> {
+                    { Line.TL, '┌' },
+                    { Line.BL, '└' },
+                    { Line.TR, '┐' },
+                    { Line.BR, '┘' },
+                    { Line.Cross, '┼' },
+                    { Line.Empty, ' ' },
+                    { Line.Vertical, '┊' },
+                    { Line.Horizontal, '┈' },
+                    { Line.Vertical | Line.Left, '┤' },
+                    { Line.Vertical | Line.Right, '├' },
+                    { Line.Horizontal | Line.Top, '┴' },
+                    { Line.Horizontal | Line.Bottom, '┬' }
                 }
             }, {
-                Border.Double, new Dictionary<BorderSegment, char> {
-                    { BorderSegment.TL, '╔' },
-                    { BorderSegment.BL, '╚' },
-                    { BorderSegment.TR, '╗' },
-                    { BorderSegment.BR, '╝' },
-                    { BorderSegment.Cross, '╬' },
-                    { BorderSegment.Vertical, '║' },
-                    { BorderSegment.Horizontal, '═' },
-                    { BorderSegment.Vertical | BorderSegment.Left, '╣' },
-                    { BorderSegment.Vertical | BorderSegment.Right, '╠' },
-                    { BorderSegment.Horizontal | BorderSegment.Top, '╩' },
-                    { BorderSegment.Horizontal | BorderSegment.Bottom, '╦' }
+                Border.Double, new Dictionary<Line, char> {
+                    { Line.TL, '╔' },
+                    { Line.BL, '╚' },
+                    { Line.TR, '╗' },
+                    { Line.BR, '╝' },
+                    { Line.Cross, '╬' },
+                    { Line.Empty, ' ' },
+                    { Line.Vertical, '║' },
+                    { Line.Horizontal, '═' },
+                    { Line.Vertical | Line.Left, '╣' },
+                    { Line.Vertical | Line.Right, '╠' },
+                    { Line.Horizontal | Line.Top, '╩' },
+                    { Line.Horizontal | Line.Bottom, '╦' }
                 }
             }, {
-                Border.Normal, new Dictionary<BorderSegment, char> {
-                    { BorderSegment.TL, '┌' },
-                    { BorderSegment.BL, '└' },
-                    { BorderSegment.TR, '┐' },
-                    { BorderSegment.BR, '┘' },
-                    { BorderSegment.Cross, '┼' },
-                    { BorderSegment.Vertical, '│' },
-                    { BorderSegment.Horizontal, '─' },
-                    { BorderSegment.Vertical | BorderSegment.Left, '┤' },
-                    { BorderSegment.Vertical | BorderSegment.Right, '├' },
-                    { BorderSegment.Horizontal | BorderSegment.Top, '┴' },
-                    { BorderSegment.Horizontal | BorderSegment.Bottom, '┬' }
+                Border.Normal, new Dictionary<Line, char> {
+                    { Line.TL, '┌' },
+                    { Line.BL, '└' },
+                    { Line.TR, '┐' },
+                    { Line.BR, '┘' },
+                    { Line.Cross, '┼' },
+                    { Line.Empty, ' ' },
+                    { Line.Vertical, '│' },
+                    { Line.Horizontal, '─' },
+                    { Line.Vertical | Line.Left, '┤' },
+                    { Line.Vertical | Line.Right, '├' },
+                    { Line.Horizontal | Line.Top, '┴' },
+                    { Line.Horizontal | Line.Bottom, '┬' }
                 }
             }, {
-                Border.Round, new Dictionary<BorderSegment, char> {
-                    { BorderSegment.TL, '╭' },
-                    { BorderSegment.BL, '╰' },
-                    { BorderSegment.TR, '╮' },
-                    { BorderSegment.BR, '╯' },
-                    { BorderSegment.Cross, '┼' },
-                    { BorderSegment.Vertical, '│' },
-                    { BorderSegment.Horizontal, '─' },
-                    { BorderSegment.Vertical | BorderSegment.Left, '┤' },
-                    { BorderSegment.Vertical | BorderSegment.Right, '├' },
-                    { BorderSegment.Horizontal | BorderSegment.Top, '┴' },
-                    { BorderSegment.Horizontal | BorderSegment.Bottom, '┬' }
+                Border.Round, new Dictionary<Line, char> {
+                    { Line.TL, '╭' },
+                    { Line.BL, '╰' },
+                    { Line.TR, '╮' },
+                    { Line.BR, '╯' },
+                    { Line.Cross, '┼' },
+                    { Line.Empty, ' ' },
+                    { Line.Vertical, '│' },
+                    { Line.Horizontal, '─' },
+                    { Line.Vertical | Line.Left, '┤' },
+                    { Line.Vertical | Line.Right, '├' },
+                    { Line.Horizontal | Line.Top, '┴' },
+                    { Line.Horizontal | Line.Bottom, '┬' }
                 }
             }
         };

@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 
 namespace SharpText.UI {
     public class Element {
-        private readonly List<Element> _children;
+        protected readonly List<Element> _children;
 
         public Vector  Offset;
         public Element Parent;
 
         public Element(Vector offset) {
+            if ((Offset.X < 0) || (Offset.Y < 0)) throw new ArgumentException("Offset must be positive");
             Offset    = offset;
             _children = new List<Element>();
         }
@@ -17,6 +19,7 @@ namespace SharpText.UI {
         }
 
         public virtual void AddChild(Element e) {
+            e.Parent = this;
             _children.Add(e);
         }
 

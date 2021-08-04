@@ -1,3 +1,4 @@
+using System;
 using System.Drawing;
 
 namespace SharpText.UI {
@@ -9,13 +10,15 @@ namespace SharpText.UI {
         public Color Fg;
 
         public ColoredBox(Vector offset, Vector size, Color bg, Color fg) : base(offset) {
-            Bg               = bg;
-            Fg               = fg;
-            Size             = size;
+            if ((offset.X < 0) || (offset.Y < 0)) throw new ArgumentException("Offset must be positive");
+            if ((size.X <= 0) || (size.Y <= 0)) throw new ArgumentException("Size must be bigger that 1");
+            Bg     = bg;
+            Fg     = fg;
+            Size   = size;
             Offset = offset;
         }
 
-        public Vector Size {
+        public virtual Vector Size {
             get { return _size; }
             set {
                 _size = value;
@@ -29,9 +32,9 @@ namespace SharpText.UI {
 
         private void RefreshBox() {
             _box = new Box(Size);
-            for (int x = 0; x < _box.Grid.GetLength(0); x++)
-                for (int y = 0; y < _box.Grid.GetLength(1); y++)
-                    _box.Grid[x, y] = new Pixel(bg: Bg);
+            for (int x = 0; x < _box.Width; x++)
+                for (int y = 0; y < _box.Height; y++)
+                    _box[x, y] = new Pixel(bg: Bg);
         }
     }
 }
